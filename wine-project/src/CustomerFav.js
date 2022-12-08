@@ -1,6 +1,45 @@
 import React from "react";
+import axios from "axios";
 
 export default class CustomerFav extends React.Component{
+
+  state = {
+    'data':[],
+    'name': '',
+    'vintage':'',
+    "grapeVarietal": [],
+    'country': [],
+    'productDescription':'',
+    'reviews':[]
+  }
+
+  async componentDidMount() {
+    const wineResponse = await axios.get("https://3000-lowellchen-project2-q8mv8lmomkc.ws-us77.gitpod.io"+"/wine");
+    console.log(wineResponse)
+    const wineData = wineResponse.data;
+    this.setState({
+      data: wineData
+     });
+  
+ } 
+   renderWines() {
+    let jsx = [];
+    for (let w of this.state.data) {
+      jsx.push(<div key={w.id}>
+          <h3>{w.name}</h3>
+          <ul>
+            <li>Vintage: {w.vintage}</li>
+            <li>Grape Varietal: {w.grapeVarietal}</li>
+            <li>Country: {w.origins[0]}</li>
+            <li>Product Description: {w.productDescription}</li>
+            <li>Reviewer's name: {w.reviews[0].nameOfReviewer}</li>
+            <li>Reviews: {w.reviews[0].description}</li>
+          </ul>
+        </div>)
+    }
+    return jsx;
+   }
+
     render(){
      return(
          <React.Fragment>
@@ -17,7 +56,7 @@ export default class CustomerFav extends React.Component{
                   <button onClick = {() => {this.props.setActive("customer")}} className= "nav-link">Customers' Favourites</button>
                 </li>
                 <li className="nav-item">
-                  <button onClick = {() => {this.props.setActive("search")}} className="nav-link">Search our inventory</button>
+                  <button onClick = {() => {this.props.setActive("search")}} className="nav-link">Share Your Reviews</button>
                 </li>
               </ul>
             </div>
@@ -58,6 +97,7 @@ export default class CustomerFav extends React.Component{
          </div>
          </div>
          </div>
+          {this.renderWines()} 
          </React.Fragment>
      )
  }

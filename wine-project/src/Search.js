@@ -1,15 +1,27 @@
 import React from "react";
-// import axios from "axios";
+import axios from "axios";
 
 export default class Search extends React.Component{
 
   state = {
+    'data':[],
     'name': '',
-    "grapeVarietal": '',
-    'country': ''
+    'vintage':'',
+    "grapeVarietal": [],
+    'country': [],
+    'productDescription':'',
+    'reviews':[]
   }
 
-
+ async componentDidMount() {
+           const wineResponse = await axios.get("https://3000-lowellchen-project2-q8mv8lmomkc.ws-us77.gitpod.io"+"/wine");
+           console.log(wineResponse)
+           const wineData = wineResponse.data;
+           this.setState({
+             data: wineData
+            });
+         
+        } 
           
      render (){
         return(
@@ -20,15 +32,15 @@ export default class Search extends React.Component{
            <div className="container">
               <ul className="nav nav-tabs">
                 <li className="nav-item">
-                  <button onClick = {() => {this.props.setActive("home")}} className="nav-link active" aria-current="page">
+                  <button style={{backgroundColor:"maroon", fontFamily:"cadillac bold", fontSize:"20px", color:"#D2B450"}} onClick = {() => {this.props.setActive("home")}} className="nav-link active" aria-current="page">
                     Home
                   </button>
                 </li>
                 <li className="nav-item">
-                  <button onClick = {() => {this.props.setActive("customer")}} className= "nav-link">Customers' Favourites</button>
+                  <button style={{backgroundColor:"gold", fontFamily:"cadillac bold", fontSize:"20px", color:"maroon"}} onClick = {() => {this.props.setActive("customer")}} className= "nav-link">Customers' Favourites</button>
                 </li>
                 <li className="nav-item">
-                  <button onClick = {() => {this.props.setActive("search")}} className="nav-link">Search our inventory</button>
+                  <button style={{backgroundColor:"maroon", fontFamily:"cadillac bold", fontSize:"20px", color:"#D2B450"}} onClick = {() => {this.props.setActive("search")}} className="nav-link">Share Your Reivews</button>
                 </li>
               </ul>
             </div>
@@ -91,14 +103,7 @@ export default class Search extends React.Component{
         } */}
 
 
-        {/* async componentDidMount() {
-            const wineResponse = await axios.get("wine");
-            const wineData = wineResponse.data;
-            this.setState({
-              wine: wineData
-            });
-         
-        } */}
+       
 
          </React.Fragment>
     )

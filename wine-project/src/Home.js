@@ -20,7 +20,7 @@ export default class Home extends React.Component{
                   <button style={{fontFamily:"cadillac bold", fontSize:"20px", color:"#D2B450"}} onClick = {() => {this.props.setActive("customer")}} className= "nav-link">Customers' Favourites</button>
                 </li>
                 <li className="nav-item">
-                  <button style={{fontFamily:"cadillac bold", fontSize:"20px", color:"#D2B450"}} onClick = {() => {this.props.setActive("search")}} className="nav-link">Search our inventory</button>
+                  <button style={{fontFamily:"cadillac bold", fontSize:"20px", color:"#D2B450"}} onClick = {() => {this.props.setActive("search")}} className="nav-link">Share Your Reviews</button>
                 </li>
               </ul>
             </div>
